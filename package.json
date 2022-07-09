@@ -1,0 +1,7 @@
+{
+    "scripts": {
+        "make": "cd data && npm i",
+        "dev": "cd data && node dev/dev",
+        "build:prod": "cd data && node dev/dev --prod"
+    }
+}
