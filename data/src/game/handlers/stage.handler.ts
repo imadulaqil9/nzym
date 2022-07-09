@@ -25,12 +25,16 @@ class GameStageHandler {
 
         this.size = new CoreVec2(this.canvas.width, this.canvas.height)
 
-        core.events.on('resize', () => this.event_resize())
+        core.events.on('resize', () => this._event_resize())
     }
 
     set_canvas(canvas: HTMLCanvasElement) {
         this.canvas = canvas
         this.ctx = this.canvas.getContext('2d')!
+    }
+
+    clear() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
     }
 
     get w() {
@@ -65,7 +69,7 @@ class GameStageHandler {
     is_auto_clear: boolean = true
     is_redraw_on_resize: boolean = true
 
-    event_resize() {
+    private _event_resize() {
         const b = this.canvas.getBoundingClientRect()
         this.size.set(b.width, b.height)
         core.events.trigger('game_stage_resize', { game: this.game })

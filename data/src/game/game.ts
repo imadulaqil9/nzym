@@ -5,6 +5,8 @@ class Game {
     input: GameInputHandler
     stage: GameStageHandler
     scene: GameSceneHandler
+    font: GameFontHandler
+    draw: GameDrawHandler
     runner: GameRunnerHandler
 
     constructor(
@@ -12,6 +14,7 @@ class Game {
             input_target_element?: HTMLElement
             mouse_target_element?: HTMLElement
             canvas?: HTMLCanvasElement
+            default_font?: GameFont
         } = {}
     ) {
         this.id = Game._ID++
@@ -24,6 +27,14 @@ class Game {
         this.stage = new GameStageHandler({
             game: this,
             canvas: options.canvas,
+        })
+
+        this.font = new GameFontHandler()
+
+        this.draw = new GameDrawHandler({
+            game: this,
+            ctx: this.stage.ctx,
+            default_font: options.default_font,
         })
 
         this.scene = new GameSceneHandler(this)

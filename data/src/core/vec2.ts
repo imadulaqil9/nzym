@@ -1,8 +1,7 @@
-class CoreVec2 {
-    constructor(
-        public x: number = 0,
-        public y: number = 0,
-    ) { }
+class CoreVec2 extends CorePoint {
+    constructor(x?: number, y?: number) {
+        super(x, y)
+    }
 
     get mid() {
         return {

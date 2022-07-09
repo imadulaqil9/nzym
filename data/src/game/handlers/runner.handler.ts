@@ -1,6 +1,6 @@
 class GameRunnerHandler {
-    private game: Game
-    private handle: number = -1
+    game: Game
+    private _handle: number = -1
 
     is_running: boolean = false
 
@@ -19,16 +19,19 @@ class GameRunnerHandler {
         }
 
         this.is_running = true
-        this.handle = window.requestAnimationFrame(run)
+        this._handle = window.requestAnimationFrame(run)
     }
 
     stop() {
         this.is_running = false
-        window.cancelAnimationFrame(this.handle)
+        window.cancelAnimationFrame(this._handle)
     }
 
     step() {
         this.game.scene.update()
+        if (this.game.stage.is_auto_clear) {
+            this.game.stage.clear()
+        }
         this.game.scene.render()
         this.game.scene.render_ui()
         this.game.input.reset()

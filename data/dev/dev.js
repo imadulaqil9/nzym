@@ -93,6 +93,33 @@ const build_css = () => {
     }
 }
 
+const random_cheer_word = [
+    'nice!',
+    'neat!',
+    'heat!',
+    'yayy!',
+    'sweet!',
+    'bravo!',
+    'cheers!',
+    'hooray!',
+    'yoohoo!',
+    'good job!',
+    'very nice!',
+    'well done!',
+    'impressive!',
+    'keep it up!',
+    'compiling done!',
+    'very impressive must i say,',
+]
+
+const random_cheer_emoji = ['😀', '😃', '😄', '😁', '😆', '😊', '😇', '🤩', '🤑', '🤯', '🤠', '🥳', '😎', '🤓', '🧐', '😺', '😸']
+const random_error_emoji = ['😅', '🤣', '😂', '🙂', '🙃', '😛', '😜', '🤪', '😝', '😪', '😴', '😷', '🤒', '🤕', '🤢', '🤮', '🤧', '🥵', '🥶', '🥴', '😵', '😕', '😟', '🙁', '☹️', '😮', '😯', '😲', '😳', '🥺', '😦', '😧', '😨', '😰', '😥', '😢', '😭', '😱', '😖', '😣', '😞', '😓', '😩', '😫', '🥱', '😤', '😡', '😠', '🤬', '😈', '👿', '💀', '☠️', '💩', '🤡', '👹', '👻', '👽', '👾', '🤖', '😹', '🙀', '😿', '😾']
+
+const pick = (arr) => arr[(Math.floor(Math.random() * arr.length))]
+const get_random_cheer_word = () => pick(random_cheer_word)
+const get_random_cheer_emoji = () => pick(random_cheer_emoji)
+const get_random_error_emoji = () => pick(random_error_emoji)
+
 const compile_ts = () => {
     log(36, 'i ts:', 'compiling...')
 
@@ -114,13 +141,14 @@ const compile_ts = () => {
 
     let error_count = 0
     const emit = program.emit()
+    const error_emoji = get_random_error_emoji()
     ts.getPreEmitDiagnostics(program)
         .concat(emit.diagnostics)
         .forEach(diag => {
             if (diag.file) {
                 const { line, character } = ts.getLineAndCharacterOfPosition(diag.file, diag.start)
                 const message = ts.flattenDiagnosticMessageText(diag.messageText, '\n')
-                log(31, '! ts:', `${path.relative(resolve('../src/'), diag.file.fileName)} (${line + 1}, ${character + 1}): ${message}`)
+                log(31, '! ts:', `${error_emoji} ${path.relative(resolve('../src/'), diag.file.fileName)} (${line + 1}, ${character + 1}): ${message}`)
                 error_count++
             }
             else {
@@ -129,7 +157,7 @@ const compile_ts = () => {
         })
 
     if (error_count === 0) {
-        log(36, 'i ts:', 'no error found')
+        log(36, 'i ts:', `${get_random_cheer_emoji()} ${get_random_cheer_word()} no error found`)
     }
 }
 

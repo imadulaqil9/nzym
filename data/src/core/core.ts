@@ -1,4 +1,5 @@
 interface Core {
+    math: CoreMathHandler
     events: CoreEventsHandler
 }
 

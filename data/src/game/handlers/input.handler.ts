@@ -52,48 +52,48 @@ class GameInputHandler {
             this.touches[id] = new GameInputHandlerTouch()
         }
 
-        window.addEventListener('keyup', ev => this.event_key_up(ev))
-        window.addEventListener('keydown', ev => this.event_key_down(ev))
-        window.addEventListener('mouseup', ev => this.event_mouse_up(ev))
-        window.addEventListener('mousedown', ev => this.event_mouse_down(ev))
-        window.addEventListener('mousemove', ev => this.event_mouse_move(ev))
-        window.addEventListener('wheel', ev => this.event_wheel(ev))
+        window.addEventListener('keyup', ev => this._event_key_up(ev))
+        window.addEventListener('keydown', ev => this._event_key_down(ev))
+        window.addEventListener('mouseup', ev => this._event_mouse_up(ev))
+        window.addEventListener('mousedown', ev => this._event_mouse_down(ev))
+        window.addEventListener('mousemove', ev => this._event_mouse_move(ev))
+        window.addEventListener('wheel', ev => this._event_wheel(ev))
         // window.addEventListener('touchend', this.touchEndEvent)
         // window.addEventListener('touchmove', this.touchMoveEvent)
         // window.addEventListener('touchstart', this.touchStartEvent)
     }
 
-    private event_key_up(ev: KeyboardEvent) {
+    private _event_key_up(ev: KeyboardEvent) {
         this.keys[ev.code].up()
     }
 
-    private event_key_down(ev: KeyboardEvent) {
+    private _event_key_down(ev: KeyboardEvent) {
         if (this.prevented_code.includes(ev.code)) {
             ev.preventDefault()
         }
         this.keys[ev.code].down()
     }
 
-    private event_mouse_up(ev: MouseEvent) {
+    private _event_mouse_up(ev: MouseEvent) {
         this.buttons[ev.button].up()
-        this.event_update_mouse(ev)
+        this._event_update_mouse(ev)
     }
 
-    private event_mouse_down(ev: MouseEvent) {
+    private _event_mouse_down(ev: MouseEvent) {
         this.buttons[ev.button].down()
-        this.event_update_mouse(ev)
+        this._event_update_mouse(ev)
     }
 
-    private event_mouse_move(ev: MouseEvent) {
-        this.event_update_mouse(ev)
+    private _event_mouse_move(ev: MouseEvent) {
+        this._event_update_mouse(ev)
         this.is_mouse_moving = true
     }
 
-    private event_wheel(ev: WheelEvent) {
+    private _event_wheel(ev: WheelEvent) {
         this.mouse_wheel_delta.set(ev.deltaX, ev.deltaY)
     }
 
-    private event_update_mouse(ev: MouseEvent) {
+    private _event_update_mouse(ev: MouseEvent) {
         const b = this.mouse_target_element.getBoundingClientRect()
         this.mouse_position.set(ev.clientX - b.x, ev.clientY - b.y)
         this.mouse_movement.set(ev.movementX, ev.movementY)

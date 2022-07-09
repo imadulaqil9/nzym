@@ -50,7 +50,6 @@ window.addEventListener('resize', () => {
     })
 })
 
-
 interface CoreEventsMap {
     dom_content_loaded: {}
     resize: {

@@ -1,5 +1,5 @@
 class GameSceneHandler {
-    private game: Game
+    game: Game
 
     current: GameScene | null = null
     previous: GameScene | null = null
